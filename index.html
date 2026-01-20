@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melissa Umble | AI Research & Engineering</title>
+    <title>Melissa Umble | AI/ML Software Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
@@ -405,6 +405,49 @@
             /* Limit image size on mobile so it doesn't take over the screen */
             .project-image-container img { max-width: 70%; } 
         }
+
+        /* MOBILE NAVIGATION & CONTACT BAR */
+        @media (max-width: 600px) {
+            /* 1. Fix the Navigation Bar */
+            nav {
+                height: auto;       /* Allow bar to grow taller if links wrap */
+                min-height: var(--nav-height);
+                padding: 10px 0;    /* Add some breathing room */
+            }
+
+            .nav-links {
+                flex-wrap: wrap;    /* Allow links to drop to next line */
+                justify-content: center;
+                gap: 2px;           /* Tighter gap */
+            }
+
+            .nav-links a {
+                font-size: 0.85rem; /* Slightly smaller text */
+                padding: 6px 10px;  /* Reduce padding to fit more per line */
+            }
+
+            /* Adjust body padding so content doesn't get hidden behind the taller nav */
+            body {
+                padding-top: 110px; 
+            }
+
+            /* 2. Fix the Contact/Link Bar */
+            .contact-bar {
+                flex-wrap: wrap;    /* Allow links to stack */
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            
+            /* Hide the bullets "•" on mobile for a cleaner stacked look */
+            .contact-bar span {
+                display: none;
+            }
+            
+            .contact-bar a {
+                border-bottom: 1px solid var(--border); /* Make links look like blocks or keep simple */
+                padding-bottom: 2px;
+            }
+}
     </style>
 </head>
 <body>
@@ -649,7 +692,7 @@
           
 
         <footer>
-            © 2026 Melissa Umble | AI Researcher & Software Engineer
+            © 2026 Melissa Umble | AI/ML Software Engineer
         </footer>
 
     </div>
