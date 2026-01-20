@@ -447,7 +447,67 @@
                 border-bottom: 1px solid var(--border); /* Make links look like blocks or keep simple */
                 padding-bottom: 2px;
             }
-}
+        }
+
+        /* --- LIGHTBOX STYLES --- */
+
+            /* The Modal (background) */
+            .lightbox-modal {
+                display: none; /* Hidden by default */
+                position: fixed; 
+                z-index: 2000; /* Sit on top of navbar */
+                padding-top: 50px; 
+                left: 0;
+                top: 0;
+                width: 100%; 
+                height: 100%; 
+                overflow: auto; 
+                background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+                backdrop-filter: blur(5px); /* Blurs the background */
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* The Image inside the Modal */
+            .lightbox-content {
+                margin: auto;
+                display: block;
+                max-width: 90%;
+                max-height: 90vh;
+                border-radius: 8px;
+                box-shadow: 0 0 20px rgba(255,255,255,0.1);
+                animation: zoomIn 0.3s;
+            }
+
+            /* Add Animation */
+            @keyframes zoomIn {
+                from {transform:scale(0.8); opacity: 0} 
+                to {transform:scale(1); opacity: 1}
+            }
+
+            /* The Close Button */
+            .close-btn {
+                position: absolute;
+                top: 20px;
+                right: 35px;
+                color: #f1f1f1;
+                font-size: 40px;
+                font-weight: bold;
+                transition: 0.3s;
+                cursor: pointer;
+                z-index: 2001;
+            }
+            .close-btn:hover { color: #bbb; }
+
+            /* INDICATOR THAT IMAGES ARE CLICKABLE */
+            /* Target images specifically inside your visual-box */
+            .visual-box img {
+                cursor: zoom-in;
+                transition: transform 0.2s ease;
+            }
+            .visual-box img:hover {
+                transform: scale(1.02);
+            }
     </style>
 </head>
 <body>
@@ -726,8 +786,62 @@
     </script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // 1. Get the modal elements
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("fullImage");
+        const closeBtn = document.querySelector(".close-btn");
+    
+        // Check if the modal HTML actually exists
+        if (!modal) {
+            console.error("Error: Could not find <div id='imageModal'> in your HTML.");
+            return;
+        }
+    
+        // 2. Find all images inside .visual-box
+        const clickableImages = document.querySelectorAll('.visual-box img');
+        
+        // 3. Add click event to each image
+        clickableImages.forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = "flex"; 
+                modalImg.src = this.src;
+            });
+        });
+    
+        // 4. Close logic
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+        }
+    
+        // Close on outside click
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        
+        // Close on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                modal.style.display = "none";
+            }
+        });
+    
+    });
+</script>
+
+<script>
     lucide.createIcons();
 </script>
+
+<div id="imageModal" class="lightbox-modal">
+    <span class="close-btn">&times;</span>
+    <img class="lightbox-content" id="fullImage">
+</div>
 
 </body>
 </html>
